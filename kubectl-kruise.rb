@@ -11,14 +11,16 @@ class KubectlKruise < Formula
     def install
         ENV["CGO_ENABLED"] = "0"
         ENV["GO111MODULE"] = "on"
-        ldflags = `#{buildpath}/version.sh`.strip
-
-    system "go", "build", "-ldflags", ldflags, "./cmd/plugin/main.go"
+        project = "github.com/openkruise/kruise-tools"
+        ldflags = %W[
+            -X #{project}/cmd/plugin/main.version=#{version}
+        ]
+    
+        system "go", "build", *std_go_args(ldflags:), "./cmd/plugin/main.go"
   
     end
   
     test do
-  
       assert_match version.to_s, shell_output("#{bin}/kubectl-kruise version")
     end
   end
