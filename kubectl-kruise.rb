@@ -12,11 +12,7 @@ class KubectlKruise < Formula
         ENV["CGO_ENABLED"] = "0"
         ENV["GO111MODULE"] = "on"
         project = "github.com/openkruise/kruise-tools"
-        ldflags = %W[
-            -s -w
-            -X #{project}/cmd/plugin/main.version=#{version}
-        ]
-    
+        ldflags = shell_output("./version.sh")
         system "go", "build", *std_go_args(ldflags:), "./cmd/plugin/main.go"
   
     end
