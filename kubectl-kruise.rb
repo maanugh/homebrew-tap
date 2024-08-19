@@ -11,9 +11,9 @@ class KubectlKruise < Formula
     def install
         ENV["CGO_ENABLED"] = "0"
         ENV["GO111MODULE"] = "on"
-        project = "github.com/openkruise/kruise-tools"
-        ldflags = shell_output("./version.sh")
-        system "go", "build", *std_go_args(ldflags:), "./cmd/plugin/main.go"
+        ldflags = Utils.safe_popen_read("#{buildpath}/version.sh").chomp
+
+        system "go", "build", -ldflags", ldflags, "./cmd/plugin/main.go"
   
     end
   
