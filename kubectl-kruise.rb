@@ -11,9 +11,9 @@ class KubectlKruise < Formula
     def install
         ENV["CGO_ENABLED"] = "0"
         ENV["GO111MODULE"] = "on"
-        ldflags = shell_output("#{buildpath}/version.sh")
+        ldflags = `#{buildpath}/version.sh`.strip
 
-        system "go", "build", "-ldflags", ldflags, "./cmd/plugin/main.go"
+    system "go", "build", "-ldflags", ldflags, "./cmd/plugin/main.go"
   
     end
   
