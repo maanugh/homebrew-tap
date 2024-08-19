@@ -13,7 +13,7 @@ class KubectlKruise < Formula
         ENV["GO111MODULE"] = "on"
         ldflags = Utils.safe_popen_read("#{buildpath}/version.sh").chomp
 
-        system "go", "build", -ldflags", ldflags, "./cmd/plugin/main.go"
+        system "go", "build", "-ldflags", ldflags, "./cmd/plugin/main.go"
   
     end
   
